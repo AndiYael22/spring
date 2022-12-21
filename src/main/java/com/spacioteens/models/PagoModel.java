@@ -9,7 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,7 +23,7 @@ public class PagoModel {
 	Long id;
 	String referencia;
 	@Column(name="FECHACOMPRA")
-	@JsonFormat(pattern="ddMMyyyy")
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date fechacompra;
 	Double Monto_total;
 	String tarjeta;
@@ -29,13 +31,17 @@ public class PagoModel {
 	int mes;
 	int anio;
 	int cvv;
-	@ManyToOne
+	
+	
+	@OneToOne
+	@JoinColumn(name="id")
 	private OrdenModel Orden;
+	
 	public PagoModel() {
 		super();
 	}
 	public PagoModel(Long id, String referencia, Double monto_total, String tarjeta, String nombreTitular, int mes,
-			int anio, int cvv, OrdenModel orden) {
+			int anio, int cvv) {
 		super();
 		this.id = id;
 		this.referencia = referencia;
@@ -45,7 +51,7 @@ public class PagoModel {
 		this.mes = mes;
 		this.anio = anio;
 		this.cvv = cvv;
-		Orden = orden;
+	
 	}
 	public Long getId() {
 		return id;
@@ -95,12 +101,7 @@ public class PagoModel {
 	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
-	public OrdenModel getOrden() {
-		return Orden;
-	}
-	public void setOrden(OrdenModel orden) {
-		Orden = orden;
-	}
+
 	
 	
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -17,20 +18,29 @@ public class ContactoModel {
 private Long id;
 private String asunto;
 private String mensaje;
-	
 @ManyToOne
 private PerfilModel perfil;
+
+
+
+public PerfilModel getPerfil() {
+	return perfil;
+}
+
+public void setPerfil(PerfilModel perfil) {
+	this.perfil = perfil;
+}
 
 public ContactoModel() {
 	super();
 }
 
-public ContactoModel(Long id, String asunto, String mensaje, PerfilModel perfil) {
+public ContactoModel(Long id, String asunto, String mensaje) {
 	super();
 	this.id = id;
 	this.asunto = asunto;
 	this.mensaje = mensaje;
-	this.perfil = perfil;
+
 }
 
 public Long getId() {
@@ -57,13 +67,7 @@ public void setMensaje(String mensaje) {
 	this.mensaje = mensaje;
 }
 
-public PerfilModel getPerfil() {
-	return perfil;
-}
 
-public void setPerfil(PerfilModel perfil) {
-	this.perfil = perfil;
-}
 
 
 

@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -22,18 +23,14 @@ public class ProductoModel {
 	String Descripcion;
 	String Imagen;
 	String Stock;
-	@OneToMany(mappedBy = "Producto")
-	private  ArrayList <OrdenModel> Orden;
-	
-	
-	
+	@ManyToOne
+	private OrdenModel Orden;
 	
 	
 	public ProductoModel() {
 		super();
 	}
-	public ProductoModel(Long id, String nombreProducto, Double precop, String descripcion, String imagen, String stock,
-			ArrayList<OrdenModel> orden) {
+	public ProductoModel(Long id, String nombreProducto, Double precop, String descripcion, String imagen, String stock) {
 		super();
 		this.id = id;
 		NombreProducto = nombreProducto;
@@ -41,7 +38,7 @@ public class ProductoModel {
 		Descripcion = descripcion;
 		Imagen = imagen;
 		Stock = stock;
-		Orden = orden;
+	
 	}
 	public Long getId() {
 		return id;
@@ -79,12 +76,7 @@ public class ProductoModel {
 	public void setStock(String stock) {
 		Stock = stock;
 	}
-	public ArrayList<OrdenModel> getOrden() {
-		return Orden;
-	}
-	public void setOrden(ArrayList<OrdenModel> orden) {
-		Orden = orden;
-	}
+
 	
 	
 }

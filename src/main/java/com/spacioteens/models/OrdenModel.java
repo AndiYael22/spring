@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table (name= "Orden")
@@ -23,36 +24,31 @@ public class OrdenModel {
 	Double precio;
 	String cantidad;
 	@Column(name="FECHACREACION")
-	@JsonFormat(pattern="ddMMyyyy")
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date fechacreacion;
+	
 	@ManyToOne
 	private PerfilModel perfil;
 	
-	
-	@OneToMany(mappedBy = "Orden")
-	private  ArrayList <PagoModel> Pagos;
-	
-	@ManyToOne
-	private ProductoModel Producto;
-	public ProductoModel getProductos() {
-		return Producto;
-	}
-	public void setProductos(ProductoModel productos) {
-		Producto = productos;
-	}
-	public OrdenModel(ProductoModel productos) {
-		super();
-		Producto = productos;
-	}
+
+
+
+@OneToMany(mappedBy="Orden" )
+private ArrayList<ProductoModel> producto;
+
+
+@OneToOne(mappedBy="Orden")
+private PagoModel pago;
+
 	public OrdenModel() {
 		super();
 	}
-	public OrdenModel(Long id, Double precio, String cantidad, PerfilModel perfil) {
+	public OrdenModel(Long id, Double precio, String cantidad) {
 		super();
 		this.id = id;
 		this.precio = precio;
 		this.cantidad = cantidad;
-		this.perfil = perfil;
+	
 	}
 	public Long getId() {
 		return id;
@@ -71,12 +67,6 @@ public class OrdenModel {
 	}
 	public void setCantidad(String cantidad) {
 		this.cantidad = cantidad;
-	}
-	public PerfilModel getPerfil() {
-		return perfil;
-	}
-	public void setPerfil(PerfilModel perfil) {
-		this.perfil = perfil;
 	}
 	
 
